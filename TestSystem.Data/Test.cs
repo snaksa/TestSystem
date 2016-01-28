@@ -16,14 +16,15 @@ namespace TestSystem.Data
     {
         public Test()
         {
-            this.TestQuestions = new HashSet<TestQuestion>();
             this.Students = new HashSet<Student>();
+            this.TestQuestions = new HashSet<TestQuestion>();
         }
     
         public int Id { get; set; }
         public string Title { get; set; }
+        public string Description { get; set; }
     
-        public virtual ICollection<TestQuestion> TestQuestions { get; set; }
         public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<TestQuestion> TestQuestions { get; set; }
     }
 }

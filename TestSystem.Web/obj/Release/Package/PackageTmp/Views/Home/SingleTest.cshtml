@@ -45,17 +45,41 @@
                                         foreach (var question in @Model.Test.TestQuestions)
                                         {
                                             count++;
+                                            string point = " точки";
+                                            if (question.Question.Points == 1)
+                                            {
+                                                point = " точка";
+                                            }
                                             <div class="singleQuestion" style="border-top: 1px solid #ccc;">
-                                                <div class="questionTitle">@question.Question.Title</div>
+                                                <div class="questionTitle">
+                                                    @question.Question.Title
+                                                    <span style="white-space:nowrap;font-style:italic;">(@question.Question.Points @point)</span>
+                                                </div>
                                                 @if (question.Question.QuestionType == 4)
                                                 {
-                                                    @Html.RadioButtonFor(m => Model.Questions[count], "1"); @question.Question.Answer1
-                                                    @:<br />
-                                                    @Html.RadioButtonFor(m => Model.Questions[count], "2") @question.Question.Answer2
-                                                    @:<br />
-                                                    @Html.RadioButtonFor(m => Model.Questions[count], "3") @question.Question.Answer3
-                                                    @:<br />
-                                                    @Html.RadioButtonFor(m => Model.Questions[count], "4") @question.Question.Answer4
+                                                    if (question.Question.Answer1 != null)
+                                                    {
+                                                        @Html.RadioButtonFor(m => Model.Questions[count], "1"); @question.Question.Answer1
+                                                        @:<br />
+                                                    }
+
+                                                    if (question.Question.Answer2 != null)
+                                                    {
+                                                        @Html.RadioButtonFor(m => Model.Questions[count], "2"); @question.Question.Answer2
+                                                        @:<br />
+                                                    }
+
+                                                    if (question.Question.Answer3 != null)
+                                                    {
+                                                        @Html.RadioButtonFor(m => Model.Questions[count], "3"); @question.Question.Answer3
+                                                        @:<br />
+                                                    }
+
+                                                    if (question.Question.Answer4 != null)
+                                                    {
+                                                        @Html.RadioButtonFor(m => Model.Questions[count], "4"); @question.Question.Answer4
+                                                        @:<br />
+                                                    }
                                                 }
                                                 else if (question.Question.QuestionType == 2)
                                                 {
@@ -74,6 +98,16 @@
                                         <div style="width: 50%;text-align:center;">
                                             <input type="submit" class="submitButton" value="Предай" />
                                         </div>
+            }
+
+            @if (Model.Test.Description != null)
+            {
+                <div>
+                    <div class="testListItem" style="text-align: center;">Информация за теста</div>
+                    <div style="padding-left: 20px;">
+                        @Html.Raw(@Model.Test.Description.Replace(Environment.NewLine, "<br />"))
+                    </div>
+                </div>
             }
         </div>
 

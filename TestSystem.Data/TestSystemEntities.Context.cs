@@ -25,12 +25,12 @@ namespace TestSystem.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TestQuestion> TestQuestions { get; set; }
-        public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<StudentAnswer> StudentAnswers { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<Test> Tests { get; set; }
     }
 }

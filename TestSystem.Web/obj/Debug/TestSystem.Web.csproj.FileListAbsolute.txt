@@ -2,6 +2,8 @@ E:\Windows\TestSystem\TestSystem.Web\bin\TestSystem.Web.dll.config
 E:\Windows\TestSystem\TestSystem.Web\bin\TestSystem.Web.dll
 E:\Windows\TestSystem\TestSystem.Web\bin\TestSystem.Web.pdb
 E:\Windows\TestSystem\TestSystem.Web\bin\Antlr3.Runtime.dll
+E:\Windows\TestSystem\TestSystem.Web\bin\EntityFramework.dll
+E:\Windows\TestSystem\TestSystem.Web\bin\EntityFramework.SqlServer.dll
 E:\Windows\TestSystem\TestSystem.Web\bin\Microsoft.Web.Infrastructure.dll
 E:\Windows\TestSystem\TestSystem.Web\bin\Newtonsoft.Json.dll
 E:\Windows\TestSystem\TestSystem.Web\bin\System.Web.Helpers.dll
@@ -11,7 +13,11 @@ E:\Windows\TestSystem\TestSystem.Web\bin\System.Web.Razor.dll
 E:\Windows\TestSystem\TestSystem.Web\bin\System.Web.WebPages.Deployment.dll
 E:\Windows\TestSystem\TestSystem.Web\bin\System.Web.WebPages.dll
 E:\Windows\TestSystem\TestSystem.Web\bin\System.Web.WebPages.Razor.dll
+E:\Windows\TestSystem\TestSystem.Web\bin\TestSystem.Data.dll
 E:\Windows\TestSystem\TestSystem.Web\bin\WebGrease.dll
+E:\Windows\TestSystem\TestSystem.Web\bin\TestSystem.Data.pdb
+E:\Windows\TestSystem\TestSystem.Web\bin\EntityFramework.xml
+E:\Windows\TestSystem\TestSystem.Web\bin\EntityFramework.SqlServer.xml
 E:\Windows\TestSystem\TestSystem.Web\bin\System.Web.Helpers.xml
 E:\Windows\TestSystem\TestSystem.Web\bin\System.Web.Mvc.xml
 E:\Windows\TestSystem\TestSystem.Web\bin\System.Web.Optimization.xml
@@ -24,9 +30,3 @@ E:\Windows\TestSystem\TestSystem.Web\bin\Newtonsoft.Json.xml
 E:\Windows\TestSystem\TestSystem.Web\obj\Debug\TestSystem.Web.csprojResolveAssemblyReference.cache
 E:\Windows\TestSystem\TestSystem.Web\obj\Debug\TestSystem.Web.dll
 E:\Windows\TestSystem\TestSystem.Web\obj\Debug\TestSystem.Web.pdb
-E:\Windows\TestSystem\TestSystem.Web\bin\TestSystem.Data.dll
-E:\Windows\TestSystem\TestSystem.Web\bin\EntityFramework.dll
-E:\Windows\TestSystem\TestSystem.Web\bin\TestSystem.Data.pdb
-E:\Windows\TestSystem\TestSystem.Web\bin\EntityFramework.xml
-E:\Windows\TestSystem\TestSystem.Web\bin\EntityFramework.SqlServer.dll
-E:\Windows\TestSystem\TestSystem.Web\bin\EntityFramework.SqlServer.xml

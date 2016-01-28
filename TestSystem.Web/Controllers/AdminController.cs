@@ -62,6 +62,7 @@ namespace TestSystem.Web.Controllers
                 q.Answer4 = vm.AddQuestion.Answer4;
                 q.CorrectAnswer = vm.AddQuestion.CorrectAnswer;
             }
+            q.Points = vm.AddQuestion.Points;
 
             DB.AddQuestion(vm.Test.Id, q);
 

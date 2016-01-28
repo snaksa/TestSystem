@@ -12,6 +12,7 @@
     <Property Name="Answer4" Type="nvarchar" MaxLength="1000" />
     <Property Name="CorrectAnswer" Type="int" Nullable="false" />
     <Property Name="QuestionType" Type="int" Nullable="false" />
+    <Property Name="Points" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="StudentAnswers">
     <Key>
@@ -54,6 +55,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar" MaxLength="1000" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="Users">
     <Key>

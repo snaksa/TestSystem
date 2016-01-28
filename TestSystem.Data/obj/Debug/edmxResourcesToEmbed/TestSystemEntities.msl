@@ -1,20 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="TestSystemModelStoreContainer" CdmEntityContainer="TestSystemEntities">
-    <EntitySetMapping Name="Questions">
-      <EntityTypeMapping TypeName="TestSystemModel.Question">
-        <MappingFragment StoreEntitySet="Questions">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="Answer1" ColumnName="Answer1" />
-          <ScalarProperty Name="Answer2" ColumnName="Answer2" />
-          <ScalarProperty Name="Answer3" ColumnName="Answer3" />
-          <ScalarProperty Name="Answer4" ColumnName="Answer4" />
-          <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
-          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="TestSystemModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
@@ -32,14 +18,6 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="TestId" ColumnName="TestId" />
           <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Tests">
-      <EntityTypeMapping TypeName="TestSystemModel.Test">
-        <MappingFragment StoreEntitySet="Tests">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -67,6 +45,30 @@
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="TestSystemModel.Question">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+          <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
+          <ScalarProperty Name="Answer4" ColumnName="Answer4" />
+          <ScalarProperty Name="Answer3" ColumnName="Answer3" />
+          <ScalarProperty Name="Answer2" ColumnName="Answer2" />
+          <ScalarProperty Name="Answer1" ColumnName="Answer1" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tests">
+      <EntityTypeMapping TypeName="TestSystemModel.Test">
+        <MappingFragment StoreEntitySet="Tests">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

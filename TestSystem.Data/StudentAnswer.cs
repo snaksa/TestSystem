@@ -19,7 +19,7 @@ namespace TestSystem.Data
         public string Answer { get; set; }
         public int StudentId { get; set; }
     
-        public virtual Question Question { get; set; }
         public virtual Student Student { get; set; }
+        public virtual Question Question { get; set; }
     }
 }

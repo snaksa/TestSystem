@@ -17,6 +17,7 @@
           <Property Name="Answer4" Type="nvarchar" MaxLength="1000" />
           <Property Name="CorrectAnswer" Type="int" Nullable="false" />
           <Property Name="QuestionType" Type="int" Nullable="false" />
+          <Property Name="Points" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="StudentAnswers">
           <Key>
@@ -59,6 +60,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -161,21 +163,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TestSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Question">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Answer1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Answer2" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Answer3" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Answer4" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="CorrectAnswer" Type="Int32" Nullable="false" />
-          <Property Name="QuestionType" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TestQuestions" Relationship="Self.FK_TestQuestions_Questions" FromRole="Questions" ToRole="TestQuestions" />
-          <NavigationProperty Name="StudentAnswers" Relationship="TestSystemModel.FK_StudentAnswers_Questions" FromRole="Question" ToRole="StudentAnswer" />
-        </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -193,70 +180,37 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TestId" Type="Int32" Nullable="false" />
           <Property Name="QuestionId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Question" Relationship="Self.FK_TestQuestions_Questions" FromRole="TestQuestions" ToRole="Questions" />
-          <NavigationProperty Name="Test" Relationship="Self.FK_TestQuestions_Tests1" FromRole="TestQuestions" ToRole="Tests" />
-        </EntityType>
-        <EntityType Name="Test">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="TestQuestions" Relationship="Self.FK_TestQuestions_Tests1" FromRole="Tests" ToRole="TestQuestions" />
-          <NavigationProperty Name="Students" Relationship="TestSystemModel.FK_Students_Tests" FromRole="Test" ToRole="Student" />
-        </EntityType>
-        <Association Name="FK_TestQuestions_Questions">
-          <End Role="Questions" Type="Self.Question" Multiplicity="1" />
-          <End Role="TestQuestions" Type="Self.TestQuestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Questions">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TestQuestions">
-              <PropertyRef Name="QuestionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestQuestions_Tests1">
-          <End Role="Tests" Type="Self.Test" Multiplicity="1" />
-          <End Role="TestQuestions" Type="Self.TestQuestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tests">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TestQuestions">
-              <PropertyRef Name="TestId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+          <NavigationProperty Name="Question" Relationship="TestSystemModel.FK_TestQuestions_Questions" FromRole="TestQuestion" ToRole="Question" />
+          <NavigationProperty Name="Test" Relationship="TestSystemModel.FK_TestQuestions_Tests1" FromRole="TestQuestion" ToRole="Test" />
+          </EntityType>
         <EntityContainer Name="TestSystemEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Questions" EntityType="Self.Question" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TestQuestions" EntityType="Self.TestQuestion" />
-          <EntitySet Name="Tests" EntityType="Self.Test" />
-          <AssociationSet Name="FK_TestQuestions_Questions" Association="Self.FK_TestQuestions_Questions">
-            <End Role="Questions" EntitySet="Questions" />
-            <End Role="TestQuestions" EntitySet="TestQuestions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestQuestions_Tests1" Association="Self.FK_TestQuestions_Tests1">
-            <End Role="Tests" EntitySet="Tests" />
-            <End Role="TestQuestions" EntitySet="TestQuestions" />
-          </AssociationSet>
           <EntitySet Name="StudentAnswers" EntityType="TestSystemModel.StudentAnswer" />
-          <AssociationSet Name="FK_StudentAnswers_Questions" Association="TestSystemModel.FK_StudentAnswers_Questions">
-            <End Role="Question" EntitySet="Questions" />
-            <End Role="StudentAnswer" EntitySet="StudentAnswers" />
-          </AssociationSet>
           <EntitySet Name="Students" EntityType="TestSystemModel.Student" />
           <AssociationSet Name="FK_StudentAnswers_Students" Association="TestSystemModel.FK_StudentAnswers_Students">
             <End Role="Student" EntitySet="Students" />
             <End Role="StudentAnswer" EntitySet="StudentAnswers" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="TestSystemModel.User" />
+          <EntitySet Name="Questions" EntityType="TestSystemModel.Question" />
+          <EntitySet Name="Tests" EntityType="TestSystemModel.Test" />
+          <AssociationSet Name="FK_StudentAnswers_Questions" Association="TestSystemModel.FK_StudentAnswers_Questions">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="StudentAnswer" EntitySet="StudentAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestQuestions_Questions" Association="TestSystemModel.FK_TestQuestions_Questions">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="TestQuestion" EntitySet="TestQuestions" />
+          </AssociationSet>
           <AssociationSet Name="FK_Students_Tests" Association="TestSystemModel.FK_Students_Tests">
             <End Role="Test" EntitySet="Tests" />
             <End Role="Student" EntitySet="Students" />
           </AssociationSet>
-          <EntitySet Name="Users" EntityType="TestSystemModel.User" />
+          <AssociationSet Name="FK_TestQuestions_Tests1" Association="TestSystemModel.FK_TestQuestions_Tests1">
+            <End Role="Test" EntitySet="Tests" />
+            <End Role="TestQuestion" EntitySet="TestQuestions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="StudentAnswer">
           <Key>
@@ -266,21 +220,9 @@
           <Property Name="QuestionId" Type="Int32" Nullable="false" />
           <Property Name="Answer" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="StudentId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Question" Relationship="TestSystemModel.FK_StudentAnswers_Questions" FromRole="StudentAnswer" ToRole="Question" />
           <NavigationProperty Name="Student" Relationship="TestSystemModel.FK_StudentAnswers_Students" FromRole="StudentAnswer" ToRole="Student" />
+          <NavigationProperty Name="Question" Relationship="TestSystemModel.FK_StudentAnswers_Questions" FromRole="StudentAnswer" ToRole="Question" />
         </EntityType>
-        <Association Name="FK_StudentAnswers_Questions">
-          <End Type="TestSystemModel.Question" Role="Question" Multiplicity="1" />
-          <End Type="TestSystemModel.StudentAnswer" Role="StudentAnswer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Question">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="StudentAnswer">
-              <PropertyRef Name="QuestionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Student">
           <Key>
             <PropertyRef Name="Id" />
@@ -303,6 +245,64 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Answer1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Answer2" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Answer3" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Answer4" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CorrectAnswer" Type="Int32" Nullable="false" />
+          <Property Name="QuestionType" Type="Int32" Nullable="false" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="StudentAnswers" Relationship="TestSystemModel.FK_StudentAnswers_Questions" FromRole="Question" ToRole="StudentAnswer" />
+          <NavigationProperty Name="TestQuestions" Relationship="TestSystemModel.FK_TestQuestions_Questions" FromRole="Question" ToRole="TestQuestion" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Students" Relationship="TestSystemModel.FK_Students_Tests" FromRole="Test" ToRole="Student" />
+          <NavigationProperty Name="TestQuestions" Relationship="TestSystemModel.FK_TestQuestions_Tests1" FromRole="Test" ToRole="TestQuestion" />
+        </EntityType>
+        <Association Name="FK_StudentAnswers_Questions">
+          <End Type="TestSystemModel.Question" Role="Question" Multiplicity="1" />
+          <End Type="TestSystemModel.StudentAnswer" Role="StudentAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StudentAnswer">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestQuestions_Questions">
+          <End Type="TestSystemModel.Question" Role="Question" Multiplicity="1" />
+          <End Type="TestSystemModel.TestQuestion" Role="TestQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TestQuestion">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Students_Tests">
           <End Type="TestSystemModel.Test" Role="Test" Multiplicity="1" />
           <End Type="TestSystemModel.Student" Role="Student" Multiplicity="*" />
@@ -315,34 +315,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
+        <Association Name="FK_TestQuestions_Tests1">
+          <End Type="TestSystemModel.Test" Role="Test" Multiplicity="1" />
+          <End Type="TestSystemModel.TestQuestion" Role="TestQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TestQuestion">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TestSystemModelStoreContainer" CdmEntityContainer="TestSystemEntities">
-          <EntitySetMapping Name="Questions">
-            <EntityTypeMapping TypeName="TestSystemModel.Question">
-              <MappingFragment StoreEntitySet="Questions">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Answer1" ColumnName="Answer1" />
-                <ScalarProperty Name="Answer2" ColumnName="Answer2" />
-                <ScalarProperty Name="Answer3" ColumnName="Answer3" />
-                <ScalarProperty Name="Answer4" ColumnName="Answer4" />
-                <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
-                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="TestSystemModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -360,14 +350,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TestId" ColumnName="TestId" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tests">
-            <EntityTypeMapping TypeName="TestSystemModel.Test">
-              <MappingFragment StoreEntitySet="Tests">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -395,6 +377,30 @@
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="TestSystemModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
+                <ScalarProperty Name="Answer4" ColumnName="Answer4" />
+                <ScalarProperty Name="Answer3" ColumnName="Answer3" />
+                <ScalarProperty Name="Answer2" ColumnName="Answer2" />
+                <ScalarProperty Name="Answer1" ColumnName="Answer1" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="TestSystemModel.Test">
+              <MappingFragment StoreEntitySet="Tests">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

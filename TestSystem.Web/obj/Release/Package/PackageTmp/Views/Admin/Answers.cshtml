@@ -30,6 +30,7 @@
                 @Model.Title
             </div>
             <div>Име: @Model.Name</div>
+            @{int total = 0;}
             @foreach (var answer in @Model.Answers)
             {
                 string ans = answer.Answer;
@@ -37,8 +38,18 @@
                 string ans2 = "";
                 string ans3 = "";
                 string ans4 = "";
+
+                string point = " точки";
+                if (answer.Question.Points == 1)
+                {
+                    point = " точка";
+                }
                 <div class="singleQuestion" style="border-top: 1px solid #ccc;">
-                    <div class="questionTitle">@answer.Question.Title</div>
+                    <div class="questionTitle">
+                        @answer.Question.Title
+                        <br />
+                        <span style="white-space:nowrap;font-style:italic;">(@answer.Question.Points @point)</span>
+                    </div>
                     @if (answer.Question.QuestionType == 4)
                     {
                         if (ans == "none")
@@ -57,29 +68,46 @@
                             else if (answer.Question.CorrectAnswer == 2) { ans2 = "correctAnswerDiv"; }
                             else if (answer.Question.CorrectAnswer == 3) { ans3 = "correctAnswerDiv"; }
                             else if (answer.Question.CorrectAnswer == 4) { ans4 = "correctAnswerDiv"; }
+
+                            if (answer.Question.CorrectAnswer == a)
+                            {
+                                total += answer.Question.Points;
+                            }
                         }
 
                         <ul>
-                            <li>
-                                <div class="@ans1">
-                                    @answer.Question.Answer1
-                                </div>
-                            </li>
-                            <li>
-                                <div class="@ans2">
-                                    @answer.Question.Answer2
-                                </div>
-                            </li>
-                            <li>
-                                <div class="@ans3">
-                                    @answer.Question.Answer3
-                                </div>
-                            </li>
-                            <li>
-                                <div class="@ans4">
-                                    @answer.Question.Answer4
-                                </div>
-                            </li>
+                            @if (answer.Question.Answer1 != null)
+                            {
+                                <li>
+                                    <div class="@ans1">
+                                        @answer.Question.Answer1
+                                    </div>
+                                </li>
+                            }
+                            @if (answer.Question.Answer2 != null)
+                            {
+                                <li>
+                                    <div class="@ans2">
+                                        @answer.Question.Answer2
+                                    </div>
+                                </li>
+                            }
+                            @if (answer.Question.Answer3 != null)
+                            {
+                                <li>
+                                    <div class="@ans3">
+                                        @answer.Question.Answer3
+                                    </div>
+                                </li>
+                            }
+                            @if (answer.Question.Answer4 != null)
+                            {
+                                <li>
+                                    <div class="@ans4">
+                                        @answer.Question.Answer4
+                                    </div>
+                                </li>
+                            }
                         </ul>
                     }
                     else if (answer.Question.QuestionType == 2)
@@ -96,6 +124,11 @@
 
                             if (answer.Question.CorrectAnswer == 1) { ans1 = "correctAnswerDiv"; }
                             else if (answer.Question.CorrectAnswer == 2) { ans2 = "correctAnswerDiv"; }
+
+                            if (answer.Question.CorrectAnswer == a)
+                            {
+                                total += answer.Question.Points;
+                            }
                         }
 
                         <ul>
@@ -116,6 +149,17 @@
                     }
                 </div>
             }
+
+            <br />
+            <hr />
+            @{
+                string points = "точки";
+                if (total == 1)
+                {
+                    points = "точка";
+                }
+            }
+            <div style="font-weight: bold;">Резултат: @total @points от тестовите въпроси</div>
         </div>
 
     </div>

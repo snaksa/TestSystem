@@ -55,6 +55,8 @@
                 <div class="contentTitle">
                     Заглавие на теста: @Html.TextBoxFor(m => Model.Test.Title, new { @Value = Model.Test.Title })
                     @Html.HiddenFor(m => @Model.Test.Id)
+                    <br />
+                    Информация за теста: @Html.TextAreaFor(m => Model.Test.Description, new { @Value = Model.Test.Description })
                 </div>
 
                 foreach (var question in @Model.Test.TestQuestions)
@@ -63,14 +65,15 @@
                     <div class="singleQuestion">
                         <div class="questionTitle">
                             @Html.TextBoxFor(m => @Model.Questions[count].Title, new { @Value = question.Question.Title })
+                            <a href="~/Admin/DeleteQuestion/@question.QuestionId?test=@Model.Test.Id" onclick="return confirm('Всички отговори на въпроса ще бъдат изтрити. Сигурни ли сте, че искате да продължите?')">Изтриване</a>
+                            <br />
+                            Точки: @Html.EditorFor(m => m.Questions[count].Points, new { htmlAttributes = new { @Value = question.Question.Points } })
                             @Html.HiddenFor(m => @Model.Questions[count].Id, new { @Value = question.QuestionId })
                             @Html.HiddenFor(m => @Model.Questions[count].QuestionType, new { @Value = question.Question.QuestionType })
-                            <a href="~/Admin/DeleteQuestion/@question.QuestionId?test=@Model.Test.Id" onclick="return confirm('Всички отговори на въпроса ще бъдат изтрити. Сигурни ли сте, че искате да продължите?')">Изтриване</a>
                         </div>
                         @if (question.Question.QuestionType == 4)
                         {
                             @:Тип: 4 възможности <br />
-
 
                             var isChecked1 = question.Question.CorrectAnswer == 1 ? new { @checked = "checked" } : null;
                             var isChecked2 = question.Question.CorrectAnswer == 2 ? new { @checked = "checked" } : null;
@@ -130,6 +133,7 @@
                 <div class="singleQuestion">
                     Заглавие: @Html.EditorFor(m => Model.AddQuestion.Title)
                     <br />
+                    Точки: @Html.EditorFor(m =>Model.AddQuestion.Points, new { htmlAttributes = new { @Value = "0" } })
                     <div id="radioChoices">
                         Тип:
                         <br />

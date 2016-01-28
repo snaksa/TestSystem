@@ -16,8 +16,8 @@ namespace TestSystem.Data
     {
         public Question()
         {
-            this.TestQuestions = new HashSet<TestQuestion>();
             this.StudentAnswers = new HashSet<StudentAnswer>();
+            this.TestQuestions = new HashSet<TestQuestion>();
         }
     
         public int Id { get; set; }
@@ -28,8 +28,9 @@ namespace TestSystem.Data
         public string Answer4 { get; set; }
         public int CorrectAnswer { get; set; }
         public int QuestionType { get; set; }
+        public int Points { get; set; }
     
-        public virtual ICollection<TestQuestion> TestQuestions { get; set; }
         public virtual ICollection<StudentAnswer> StudentAnswers { get; set; }
+        public virtual ICollection<TestQuestion> TestQuestions { get; set; }
     }
 }

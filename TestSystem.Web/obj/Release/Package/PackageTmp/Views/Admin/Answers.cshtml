@@ -1,0 +1,124 @@
+﻿@model TestSystem.Web.ViewModels.AnswersViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    @Styles.Render("~/Content/styles.css")
+    <title>Тестова система - СОУ "Христо Ботев", гр. Кубрат</title>
+</head>
+
+<body>
+    <div id="page">
+        <div class="topNaviagationLink" style="float:left;"><a href="~/Home/Index"><div style="width:100%;height:100%;text-align:center;">Начало</div></a></div>
+        <div class="topNaviagationLink" style="float:right;"><a href="~/Home/Logout"><div style="width:100%;height:100%;text-align:center;">Изход</div></a></div>
+        <div class="topNaviagationLink" style="float:right;"><a href="~/Admin/Index"><div style="width:100%;height:100%;text-align:center;">Админ панел</div></a></div>
+    </div>
+    <div id="mainPicture">
+        <div class="picture">
+            <div style="position: relative;width:100%;height:100%;">
+                <img src="~/Content/img/schoolImage.jpg" id="coverImage" />
+            </div>
+        </div>
+
+    </div>
+    <div class="contentBox">
+        <div class="innerBox">
+            <div class="contentTitle">
+                @Model.Title
+            </div>
+            <div>Име: @Model.Name</div>
+            @foreach (var answer in @Model.Answers)
+            {
+                string ans = answer.Answer;
+                string ans1 = "";
+                string ans2 = "";
+                string ans3 = "";
+                string ans4 = "";
+                <div class="singleQuestion" style="border-top: 1px solid #ccc;">
+                    <div class="questionTitle">@answer.Question.Title</div>
+                    @if (answer.Question.QuestionType == 4)
+                    {
+                        if (ans == "none")
+                        {
+                            @:<div class="falseAnswerDiv">Не е отговорено</div>
+                        }
+                        else
+                        {
+                            int a = Int32.Parse(ans);
+                            if (a == 1) { ans1 = "falseAnswerDiv"; }
+                            else if (a == 2) { ans2 = "falseAnswerDiv"; }
+                            else if (a == 3) { ans3 = "falseAnswerDiv"; }
+                            else if (a == 4) { ans4 = "falseAnswerDiv"; }
+
+                            if (answer.Question.CorrectAnswer == 1) { ans1 = "correctAnswerDiv"; }
+                            else if (answer.Question.CorrectAnswer == 2) { ans2 = "correctAnswerDiv"; }
+                            else if (answer.Question.CorrectAnswer == 3) { ans3 = "correctAnswerDiv"; }
+                            else if (answer.Question.CorrectAnswer == 4) { ans4 = "correctAnswerDiv"; }
+                        }
+
+                        <ul>
+                            <li>
+                                <div class="@ans1">
+                                    @answer.Question.Answer1
+                                </div>
+                            </li>
+                            <li>
+                                <div class="@ans2">
+                                    @answer.Question.Answer2
+                                </div>
+                            </li>
+                            <li>
+                                <div class="@ans3">
+                                    @answer.Question.Answer3
+                                </div>
+                            </li>
+                            <li>
+                                <div class="@ans4">
+                                    @answer.Question.Answer4
+                                </div>
+                            </li>
+                        </ul>
+                    }
+                    else if (answer.Question.QuestionType == 2)
+                    {
+                        if (ans == "none")
+                        {
+                            @:<div class="falseAnswerDiv">Не е отговорено</div>
+                        }
+                        else
+                        {
+                            int a = Int32.Parse(ans);
+                            if (a == 1) { ans1 = "falseAnswerDiv"; }
+                            else if (a == 2) { ans2 = "falseAnswerDiv"; }
+
+                            if (answer.Question.CorrectAnswer == 1) { ans1 = "correctAnswerDiv"; }
+                            else if (answer.Question.CorrectAnswer == 2) { ans2 = "correctAnswerDiv"; }
+                        }
+
+                        <ul>
+                            <li><div class="@ans1">Вярно</div></li>
+                            <li><div class="@ans2">Невярно</div></li>
+                        </ul>
+                    }
+                    else if (answer.Question.QuestionType == 1)
+                    {
+                        if (answer.Answer == String.Empty || answer.Answer == null)
+                        {
+                            @:<div class="falseAnswerDiv">Не е отговорено</div>
+                        }
+                        else
+                        {
+                            @:<div>@answer.Answer</div>
+                        }
+                    }
+                </div>
+            }
+        </div>
+
+    </div>
+    <div id="footer">Web Development by Sinan Zikri @@2016</div>
+</body>
+</html>

@@ -1,0 +1,178 @@
+﻿@model TestSystem.Web.ViewModels.EditTestViewModel
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    @Styles.Render("~/Content/styles.css")
+    <title>Тестова система - СОУ "Христо Ботев", гр. Кубрат</title>
+    <script>
+        $(document).ready(function () {
+            $('.choice').click(function () {
+                $("#radioChoices input:radio").each(function () {
+                    if ($(this).is(":checked")) {
+                        var val = this.value;
+                        if (val == 1) {
+                            $("#trueFalseAnswer").hide();
+                            $("#fourAnswer").hide();
+                        }
+                        else if (val == 2) {
+                            $("#fourAnswer").hide();
+                            $("#trueFalseAnswer").show();
+                        }
+                        else if (val == 4) {
+                            $("#trueFalseAnswer").hide();
+                            $("#fourAnswer").show();
+                        }
+                    }
+                });
+
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="page">
+        <div class="topNaviagationLink" style="float:left;"><a href="~/Home/Index"><div style="width:100%;height:100%;text-align:center;">Начало</div></a></div>
+        <div class="topNaviagationLink" style="float:right;"><a href="~/Home/Logout"><div style="width:100%;height:100%;text-align:center;">Изход</div></a></div>
+        <div class="topNaviagationLink" style="float:right;"><a href="~/Admin/Index"><div style="width:100%;height:100%;text-align:center;">Админ панел</div></a></div>
+    </div>
+    <div id="mainPicture">
+        <div class="picture">
+            <div style="position: relative;width:100%;height:100%;">
+                <img src="~/Content/img/schoolImage.jpg" id="coverImage" />
+            </div>
+        </div>
+
+    </div>
+    <div class="contentBox">
+        <div class="innerBox">
+            @using (Html.BeginForm("EditTest", "Admin", FormMethod.Post))
+            {
+                int count = -1;
+                @Html.AntiForgeryToken();
+                <div class="contentTitle">
+                    Заглавие на теста: @Html.TextBoxFor(m => Model.Test.Title, new { @Value = Model.Test.Title })
+                    @Html.HiddenFor(m => @Model.Test.Id)
+                </div>
+
+                foreach (var question in @Model.Test.TestQuestions)
+                {
+                    count++;
+                    <div class="singleQuestion">
+                        <div class="questionTitle">
+                            @Html.TextBoxFor(m => @Model.Questions[count].Title, new { @Value = question.Question.Title })
+                            @Html.HiddenFor(m => @Model.Questions[count].Id, new { @Value = question.QuestionId })
+                            @Html.HiddenFor(m => @Model.Questions[count].QuestionType, new { @Value = question.Question.QuestionType })
+                            <a href="~/Admin/DeleteQuestion/@question.QuestionId?test=@Model.Test.Id" onclick="return confirm('Всички отговори на въпроса ще бъдат изтрити. Сигурни ли сте, че искате да продължите?')">Изтриване</a>
+                        </div>
+                        @if (question.Question.QuestionType == 4)
+                        {
+                            @:Тип: 4 възможности <br />
+
+
+                            var isChecked1 = question.Question.CorrectAnswer == 1 ? new { @checked = "checked" } : null;
+                            var isChecked2 = question.Question.CorrectAnswer == 2 ? new { @checked = "checked" } : null;
+                            var isChecked3 = question.Question.CorrectAnswer == 3 ? new { @checked = "checked" } : null;
+                            var isChecked4 = question.Question.CorrectAnswer == 4 ? new { @checked = "checked" } : null;
+
+
+
+                            @Html.RadioButtonFor(m => Model.Questions[count].CorrectAnswer, "1", isChecked1);
+                            @Html.TextBoxFor(m => Model.Questions[count].Answer1, new { @Value = question.Question.Answer1 })
+
+                            @:<br />
+                            @Html.RadioButtonFor(m => Model.Questions[count].CorrectAnswer, "2", isChecked2);
+                            @Html.TextBoxFor(m => Model.Questions[count].Answer2, new { @Value = question.Question.Answer2 })
+
+                            @:<br />
+                            @Html.RadioButtonFor(m => Model.Questions[count].CorrectAnswer, "3", isChecked3);
+                            @Html.TextBoxFor(m => Model.Questions[count].Answer3, new { @Value = question.Question.Answer3 })
+
+                            @:<br />
+                            @Html.RadioButtonFor(m => Model.Questions[count].CorrectAnswer, "4", isChecked4);
+                            @Html.TextBoxFor(m => Model.Questions[count].Answer4, new { @Value = question.Question.Answer4 })
+                        }
+                        else if (question.Question.QuestionType == 2)
+                        {
+                            var isChecked1 = question.Question.CorrectAnswer == 1 ? new { @checked = "checked" } : null;
+                            var isChecked2 = question.Question.CorrectAnswer == 2 ? new { @checked = "checked" } : null;
+                            @:Тип: Вярно/Невярно
+
+                            <br />
+                            @Html.RadioButtonFor(m => Model.Questions[count].CorrectAnswer, "1", isChecked1);
+                            @:Вярно
+
+                            @:<br />
+                            @Html.RadioButtonFor(m => Model.Questions[count].CorrectAnswer, "2", isChecked2);
+                            @:Невярно
+                        }
+                        else if (question.Question.QuestionType == 1)
+                        {
+                            @:Тип: Свободен отговор
+                        }
+
+                    </div>
+                    <hr style="width:100%;margin-top:10px;margin-bottom:10px;" />
+                }
+
+                <div style="width: 50%;text-align:center;">
+                    <input type="submit" class="submitButton" value="Редактиране на теста" />
+                </div>
+            }
+
+            @using (Html.BeginForm("AddQuestion", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken();
+                @Html.HiddenFor(m => Model.Test.Id)
+                <div style="margin-top: 30px;">Нов въпрос</div>
+                <div class="singleQuestion">
+                    Заглавие: @Html.EditorFor(m => Model.AddQuestion.Title)
+                    <br />
+                    <div id="radioChoices">
+                        Тип:
+                        <br />
+                        @Html.RadioButtonFor(m => Model.AddQuestion.QuestionType, "1", new { @checked = "checked", @class = "choice" }) Свободен отговор
+                        <br />
+                        @Html.RadioButtonFor(m => Model.AddQuestion.QuestionType, "2", new { @class = "choice" }) Вярно/Невярно
+                        <br />
+                        @Html.RadioButtonFor(m => Model.AddQuestion.QuestionType, "4", new { @class = "choice" }) 4 възможности
+                    </div>
+
+                    <div id="freeAnswer"></div>
+                    <div id="trueFalseAnswer" style="display:none;">
+                        Верен отговор:
+                        <br />
+                        @Html.RadioButtonFor(m => Model.AddQuestion.CorrectAnswer, "1", new { @checked = "checked" }) Вярно
+                        <br />
+                        @Html.RadioButtonFor(m => Model.AddQuestion.CorrectAnswer, "2") Невярно
+                    </div>
+                    <div id="fourAnswer" style="display:none;">
+                        Възможности:
+                        <br />
+                        @Html.RadioButtonFor(m => Model.AddQuestion.CorrectAnswer, "1", new { @checked = "checked" })
+                        @Html.EditorFor(m => @Model.AddQuestion.Answer1)
+                        <br />
+                        @Html.RadioButtonFor(m => Model.AddQuestion.CorrectAnswer, "2")
+                        @Html.EditorFor(m => @Model.AddQuestion.Answer2)
+                        <br />
+                        @Html.RadioButtonFor(m => Model.AddQuestion.CorrectAnswer, "3")
+                        @Html.EditorFor(m => @Model.AddQuestion.Answer3)
+                        <br />
+                        @Html.RadioButtonFor(m => Model.AddQuestion.CorrectAnswer, "4")
+                        @Html.EditorFor(m => @Model.AddQuestion.Answer4)
+                        <br />
+                    </div>
+                </div>
+
+                <div style="width: 50%;text-align:center;">
+                    <input type="submit" class="submitButton" value="Добавяне на въпрос" />
+                </div>
+            }
+        </div>
+
+    </div>
+    <div id="footer">Web Development by Sinan Zikri @@2016</div>
+</body>
+</html>

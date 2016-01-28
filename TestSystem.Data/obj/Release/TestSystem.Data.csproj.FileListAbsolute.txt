@@ -1,0 +1,10 @@
+E:\Windows\TestSystem\TestSystem.Data\bin\Release\TestSystem.Data.dll.config
+E:\Windows\TestSystem\TestSystem.Data\bin\Release\TestSystem.Data.dll
+E:\Windows\TestSystem\TestSystem.Data\bin\Release\TestSystem.Data.pdb
+E:\Windows\TestSystem\TestSystem.Data\bin\Release\EntityFramework.dll
+E:\Windows\TestSystem\TestSystem.Data\bin\Release\EntityFramework.SqlServer.dll
+E:\Windows\TestSystem\TestSystem.Data\bin\Release\EntityFramework.xml
+E:\Windows\TestSystem\TestSystem.Data\bin\Release\EntityFramework.SqlServer.xml
+E:\Windows\TestSystem\TestSystem.Data\obj\Release\TestSystem.Data.csprojResolveAssemblyReference.cache
+E:\Windows\TestSystem\TestSystem.Data\obj\Release\TestSystem.Data.dll
+E:\Windows\TestSystem\TestSystem.Data\obj\Release\TestSystem.Data.pdb

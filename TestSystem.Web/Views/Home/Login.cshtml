@@ -1,0 +1,45 @@
+﻿@model TestSystem.Web.ViewModels.TestViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    @Styles.Render("~/Content/styles.css")
+    @Styles.Render("~/Content/login.css")
+    <title>Тестова система - СОУ "Христо Ботев", гр. Кубрат</title>
+</head>
+
+<body>
+    <div id="page">
+        <div class="topNaviagationLink" style="float:left;"><a href="~/"><div style="width:100%;height:100%;text-align:center;">Начало</div></a></div>
+        <div class="topNaviagationLink" style="float:right;"><a href="~/Home/Login"><div style="width:100%;height:100%;text-align:center;">Вход</div></a></div>
+    </div>
+    <div id="mainPicture">
+        <div class="picture">
+            <div style="position: relative;width:100%;height:100%;">
+                <img src="~/Content/img/schoolImage.jpg" id="coverImage" />
+            </div>
+        </div>
+
+    </div>
+    <div class="contentBox">
+        <div class="innerBox">
+            @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken();
+
+                <div class="login-block">
+                    <h1>Вход</h1>
+                    <input type="text" value="" placeholder="Име" name="username" id="username" />
+                    <input type="password" value="" placeholder="Парола" name="password" id="password" />
+                    <button>Вход</button>
+                </div>
+            }
+        </div>
+
+    </div>
+    <div id="footer">Web Development by Sinan Zikri @@2016</div>
+</body>
+</html>

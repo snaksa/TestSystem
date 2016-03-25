@@ -9,6 +9,21 @@
     @Styles.Render("~/Content/styles.css")
     <title>Тестова система - СОУ "Христо Ботев", гр. Кубрат</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="~/Content/justFile1.js"></script>
+	<script src="~/Content/justFile2.js"></script>
+	<script src="~/Content/justFile3.js"></script>
+	<script src="~/Content/justFile4.js"></script>
+	<script src="~/Content/justFile5.js"></script>
+	<script src="~/Content/justFile6.js"></script>
+	<script src="~/Content/justFile7.js"></script>
+	<script src="~/Content/justFile8.js"></script>
+	<script src="~/Content/justFile9.js"></script>
+	<script src="~/Content/justFile10.js"></script>
+	<script src="~/Content/justFile11.js"></script>
+	<script src="~/Content/justFile12.js"></script>
+	<script src="~/Content/justFile13.js"></script>
+	<script src="~/Content/justFile14.js"></script>
+	<script src="~/Content/justFile15.js"></script>
     <script>
         window.onload = function () {
             $('#footer').nextAll().remove();
@@ -65,7 +80,8 @@
                                                 {
                                                     if (question.Question.Answer1 != null)
                                                     {
-                                                        @Html.RadioButtonFor(m => Model.Questions[count], "1"); @question.Question.Answer1
+                                                        @Html.RadioButtonFor(m => Model.Questions[count], "1");
+                                                            @question.Question.Answer1
                                                         @:<br />
                                                     }
 

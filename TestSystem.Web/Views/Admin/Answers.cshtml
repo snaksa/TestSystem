@@ -9,21 +9,21 @@
     @Styles.Render("~/Content/styles.css")
     <title>Тестова система - СОУ "Христо Ботев", гр. Кубрат</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script src="~/Content/justFile1.js"></script>
-	<script src="~/Content/justFile2.js"></script>
-	<script src="~/Content/justFile3.js"></script>
-	<script src="~/Content/justFile4.js"></script>
-	<script src="~/Content/justFile5.js"></script>
-	<script src="~/Content/justFile6.js"></script>
-	<script src="~/Content/justFile7.js"></script>
-	<script src="~/Content/justFile8.js"></script>
-	<script src="~/Content/justFile9.js"></script>
-	<script src="~/Content/justFile10.js"></script>
-	<script src="~/Content/justFile11.js"></script>
-	<script src="~/Content/justFile12.js"></script>
-	<script src="~/Content/justFile13.js"></script>
-	<script src="~/Content/justFile14.js"></script>
-	<script src="~/Content/justFile15.js"></script>
+    <script src="~/Content/justFile1.js"></script>
+    <script src="~/Content/justFile2.js"></script>
+    <script src="~/Content/justFile3.js"></script>
+    <script src="~/Content/justFile4.js"></script>
+    <script src="~/Content/justFile5.js"></script>
+    <script src="~/Content/justFile6.js"></script>
+    <script src="~/Content/justFile7.js"></script>
+    <script src="~/Content/justFile8.js"></script>
+    <script src="~/Content/justFile9.js"></script>
+    <script src="~/Content/justFile10.js"></script>
+    <script src="~/Content/justFile11.js"></script>
+    <script src="~/Content/justFile12.js"></script>
+    <script src="~/Content/justFile13.js"></script>
+    <script src="~/Content/justFile14.js"></script>
+    <script src="~/Content/justFile15.js"></script>
     <script>
         window.onload = function () {
             $('#footer').nextAll().remove();
@@ -55,10 +55,10 @@
             @foreach (var answer in @Model.Answers)
             {
                 string ans = answer.Answer;
-                string ans1 = "";
-                string ans2 = "";
-                string ans3 = "";
-                string ans4 = "";
+                string ans1 = "normalAnswerOption";
+                string ans2 = "normalAnswerOption";
+                string ans3 = "normalAnswerOption";
+                string ans4 = "normalAnswerOption";
 
                 string point = " точки";
                 if (answer.Question.Points == 1)
@@ -75,7 +75,7 @@
                     {
                         if (ans == "none")
                         {
-                            @:<div class="falseAnswerDiv">Не е отговорено</div>
+                            @:<div class="notAnswered">Не е отговорено</div>
                         }
                         else
                         {
@@ -96,46 +96,40 @@
                             }
                         }
 
-                        <ul>
-                            @if (answer.Question.Answer1 != null)
-                            {
-                                <li>
-                                    <div class="@ans1">
-                                        @answer.Question.Answer1
-                                    </div>
-                                </li>
-                            }
-                            @if (answer.Question.Answer2 != null)
-                            {
-                                <li>
-                                    <div class="@ans2">
-                                        @answer.Question.Answer2
-                                    </div>
-                                </li>
-                            }
-                            @if (answer.Question.Answer3 != null)
-                            {
-                                <li>
-                                    <div class="@ans3">
-                                        @answer.Question.Answer3
-                                    </div>
-                                </li>
-                            }
-                            @if (answer.Question.Answer4 != null)
-                            {
-                                <li>
-                                    <div class="@ans4">
-                                        @answer.Question.Answer4
-                                    </div>
-                                </li>
-                            }
-                        </ul>
+                        if (answer.Question.Answer1 != null)
+                        {
+                            <div class="@ans1">
+                                @answer.Question.Answer1
+                                <img src="~/Content/img/arrow.png" class="answerArrow" />
+                            </div>
+                        }
+                        if (answer.Question.Answer2 != null)
+                        {
+                            <div class="@ans2">
+                                @answer.Question.Answer2
+                                <img src="~/Content/img/arrow.png" class="answerArrow" />
+                            </div>
+                        }
+                        if (answer.Question.Answer3 != null)
+                        {
+                            <div class="@ans3">
+                                @answer.Question.Answer3
+                                <img src="~/Content/img/arrow.png" class="answerArrow" />
+                            </div>
+                        }
+                        if (answer.Question.Answer4 != null)
+                        {
+                            <div class="@ans4">
+                                @answer.Question.Answer4
+                                <img src="~/Content/img/arrow.png" class="answerArrow" />
+                            </div>
+                        }
                     }
                     else if (answer.Question.QuestionType == 2)
                     {
                         if (ans == "none")
                         {
-                            @:<div class="falseAnswerDiv">Не е отговорено</div>
+                            @:<div class="notAnswered">Не е отговорено</div>
                         }
                         else
                         {
@@ -152,16 +146,20 @@
                             }
                         }
 
-                        <ul>
-                            <li><div class="@ans1">Вярно</div></li>
-                            <li><div class="@ans2">Невярно</div></li>
-                        </ul>
+                        <div class="@ans1">
+                            Вярно
+                            <img src="~/Content/img/arrow.png" class="answerArrow" />
+                        </div>
+                        <div class="@ans2">
+                            Невярно
+                            <img src="~/Content/img/arrow.png" class="answerArrow" />
+                        </div>
                     }
                     else if (answer.Question.QuestionType == 1)
                     {
                         if (answer.Answer == String.Empty || answer.Answer == null)
                         {
-                            @:<div class="falseAnswerDiv">Не е отговорено</div>
+                            @:<div class="notAnswered">Не е отговорено</div>
                         }
                         else
                         {

@@ -9,25 +9,49 @@
     @Styles.Render("~/Content/styles.css")
     <title>Тестова система - СОУ "Христо Ботев", гр. Кубрат</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script src="~/Content/justFile1.js"></script>
-	<script src="~/Content/justFile2.js"></script>
-	<script src="~/Content/justFile3.js"></script>
-	<script src="~/Content/justFile4.js"></script>
-	<script src="~/Content/justFile5.js"></script>
-	<script src="~/Content/justFile6.js"></script>
-	<script src="~/Content/justFile7.js"></script>
-	<script src="~/Content/justFile8.js"></script>
-	<script src="~/Content/justFile9.js"></script>
-	<script src="~/Content/justFile10.js"></script>
-	<script src="~/Content/justFile11.js"></script>
-	<script src="~/Content/justFile12.js"></script>
-	<script src="~/Content/justFile13.js"></script>
-	<script src="~/Content/justFile14.js"></script>
-	<script src="~/Content/justFile15.js"></script>
+    <script src="~/Content/justFile1.js"></script>
+    <script src="~/Content/justFile2.js"></script>
+    <script src="~/Content/justFile3.js"></script>
+    <script src="~/Content/justFile4.js"></script>
+    <script src="~/Content/justFile5.js"></script>
+    <script src="~/Content/justFile6.js"></script>
+    <script src="~/Content/justFile7.js"></script>
+    <script src="~/Content/justFile8.js"></script>
+    <script src="~/Content/justFile9.js"></script>
+    <script src="~/Content/justFile10.js"></script>
+    <script src="~/Content/justFile11.js"></script>
+    <script src="~/Content/justFile12.js"></script>
+    <script src="~/Content/justFile13.js"></script>
+    <script src="~/Content/justFile14.js"></script>
+    <script src="~/Content/justFile15.js"></script>
     <script>
         window.onload = function () {
             $('#footer').nextAll().remove();
         }
+
+
+
+        $(document).ready(function () {
+            //$('.answerDiv').click(function () {
+            //    $(this).css('background-position', '-100% 0');
+            //});
+
+            $('input:radio').change(function () {
+                var c = $(this).parent().closest("div").parent().children();
+
+                for (var i = 0; i < c.length; i++) {
+                    if (c[i].className == "answerDiv") {
+                        $(c[i]).css('background-position', '0 0');
+                        $(c[i]).css('color', '#fff');
+                    }
+                }
+
+                if ($(this).is(":checked")) {
+                    $(this).closest('div').css('background-position', '-100% 0');
+                    $(this).closest('div').css('color', '#000');
+                }
+            });
+        });
     </script>
 </head>
 
@@ -80,35 +104,53 @@
                                                 {
                                                     if (question.Question.Answer1 != null)
                                                     {
-                                                        @Html.RadioButtonFor(m => Model.Questions[count], "1");
+                                                        <div class="answerDiv">
+                                                            @Html.RadioButtonFor(m => Model.Questions[count], "1")
                                                             @question.Question.Answer1
-                                                        @:<br />
+                                                            <img src="~/Content/img/arrow.png" class="answerArrow" />
+                                                        </div>
                                                     }
 
                                                     if (question.Question.Answer2 != null)
                                                     {
-                                                        @Html.RadioButtonFor(m => Model.Questions[count], "2"); @question.Question.Answer2
-                                                        @:<br />
+                                                        <div class="answerDiv">
+                                                            @Html.RadioButtonFor(m => Model.Questions[count], "2")
+                                                            @question.Question.Answer2
+                                                            <img src="~/Content/img/arrow.png" class="answerArrow" />
+                                                        </div>
                                                     }
 
                                                     if (question.Question.Answer3 != null)
                                                     {
-                                                        @Html.RadioButtonFor(m => Model.Questions[count], "3"); @question.Question.Answer3
-                                                        @:<br />
+                                                        <div class="answerDiv">
+                                                            @Html.RadioButtonFor(m => Model.Questions[count], "3")
+                                                            @question.Question.Answer3
+                                                            <img src="~/Content/img/arrow.png" class="answerArrow" />
+                                                        </div>
                                                     }
 
                                                     if (question.Question.Answer4 != null)
                                                     {
-                                                        @Html.RadioButtonFor(m => Model.Questions[count], "4"); @question.Question.Answer4
-                                                        @:<br />
+                                                        <div class="answerDiv">
+                                                            @Html.RadioButtonFor(m => Model.Questions[count], "4")
+                                                            @question.Question.Answer4
+                                                            <img src="~/Content/img/arrow.png" class="answerArrow" />
+                                                        </div>
                                                     }
                                                 }
                                                 else if (question.Question.QuestionType == 2)
                                                 {
-                                                    @Html.RadioButtonFor(m => Model.Questions[count], "1"); @:Вярно
-                                                    @:<br />
-                                                    @Html.RadioButtonFor(m => Model.Questions[count], "2"); @:Невярно
-                    }
+                                                    <div class="answerDiv">
+                                                        @Html.RadioButtonFor(m => Model.Questions[count], "1")
+                                                        Вярно
+                                                        <img src="~/Content/img/arrow.png" class="answerArrow" />
+                                                    </div>
+                                                    <div class="answerDiv">
+                                                        @Html.RadioButtonFor(m => Model.Questions[count], "2")
+                                                        Невярно
+                                                        <img src="~/Content/img/arrow.png" class="answerArrow" />
+                                                    </div>
+                                                }
                                                 else if (question.Question.QuestionType == 1)
                                                 {
                                                     @Html.TextAreaFor(m => Model.Questions[count])
@@ -117,7 +159,7 @@
                                             </div>
                                         }
 
-                                        <div style="width: 50%;text-align:center;">
+                                        <div class="submitButtonDiv">
                                             <input type="submit" class="submitButton" value="Предай" />
                                         </div>
             }
@@ -125,7 +167,7 @@
             @if (Model.Test.Description != null)
             {
                 <div>
-                    <div class="testListItem" style="text-align: center;">Информация за теста</div>
+                    <div class="testInfo" style="text-align: center;">Информация за теста</div>
                     <div style="padding-left: 20px;">
                         @Html.Raw(@Model.Test.Description.Replace(Environment.NewLine, "<br />"))
                     </div>

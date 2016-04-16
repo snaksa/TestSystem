@@ -218,10 +218,14 @@ a{
 .answerDiv{
     background-size: 200% 100%;
     background-image: linear-gradient(to right, #024866 50%, #9be0fd 50%);
+	background-image: -webkit-linear-gradient(to right, #024866 50%, #9be0fd 50%);
 
     -webkit-transition: background-position 400ms;
     -moz-transition: background-position 400ms;
     transition: background-position 400ms;
+	
+    -o-transition: background-position 400ms;
+    -ms-transition: background-position 400ms; 
 }
 
 .answerArrow{
